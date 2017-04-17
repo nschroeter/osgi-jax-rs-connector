@@ -35,10 +35,12 @@ public class ServletContainerBridge extends HttpServlet implements Runnable {
 	private volatile boolean isJerseyReady;
 
 	public ServletContainerBridge(RootApplication application) {
-		this.servletContainer = new ServletContainer(ResourceConfig.forApplication(application));
+		ResourceConfig resourceConfig = ResourceConfig.forApplication(application);
+		this.servletContainer = new ServletContainer(resourceConfig);
 		this.application = application;
 		this.isJerseyReady = false;
 	}
+	
 
 	@Override
 	public void run() {

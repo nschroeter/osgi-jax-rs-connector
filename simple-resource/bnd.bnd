@@ -1,5 +1,6 @@
 -buildpath: \
 	osgi.cmpn;version=6.0,\
-	javax.ws.rs-api;version=2.0
+	javax.ws.rs-api;version=2.0,\
+	com.fasterxml.jackson.core.jackson-annotations;version=2.8
 Private-Package: name.nschroeter.osgi.jaxrs.connector.simpleresource.provider
 Export-Package: name.nschroeter.osgi.jaxrs.connector.simpleresource

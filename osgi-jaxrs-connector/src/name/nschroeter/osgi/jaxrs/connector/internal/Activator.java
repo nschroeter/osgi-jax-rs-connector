@@ -19,6 +19,7 @@ import java.util.Hashtable;
 
 import javax.ws.rs.Path;
 
+import org.glassfish.jersey.jackson.JacksonFeature;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
@@ -30,12 +31,12 @@ import org.osgi.service.cm.ManagedService;
 
 public class Activator implements BundleActivator {
 
-	private ServiceRegistration<?> connectorRegistration;
 	private JaxRSConnector jaxRsConnector;
 	private HttpTracker httpTracker;
 	private ServletConfigurationTracker servletConfigurationTracker;
 	private ApplicationConfigurationTracker applicationConfigurationTracker;
 	private ServiceRegistration<?> configRegistration;
+	private ServiceRegistration<JacksonFeature> jacksonFeatureRegistration;
 
 	@Override
 	public void start(BundleContext context) throws Exception {
@@ -44,12 +45,13 @@ public class Activator implements BundleActivator {
 		startJerseyServer();
 		jaxRsConnector = new JaxRSConnector(context);
 		registerConfiguration(context);
-		connectorRegistration = context.registerService(JaxRSConnector.class.getName(), jaxRsConnector, null);
 		openHttpServiceTracker(context);
 		openServletConfigurationTracker(context);
 		openApplicationConfigurationTracker(context);
 		ResourceListener listener = new ResourceListener(context, jaxRsConnector);
 		context.addServiceListener(listener);
+		JacksonFeature feature = new JacksonFeature();
+		jacksonFeatureRegistration = context.registerService(JacksonFeature.class, feature, null );
 	}
 
 	private void registerConfiguration(BundleContext context) {
@@ -86,7 +88,7 @@ public class Activator implements BundleActivator {
 		httpTracker.close();
 		servletConfigurationTracker.close();
 		applicationConfigurationTracker.close();
-		connectorRegistration.unregister();
+		jacksonFeatureRegistration.unregister();
 		configRegistration.unregister();
 	}
 
