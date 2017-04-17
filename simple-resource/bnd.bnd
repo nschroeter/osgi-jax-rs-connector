@@ -1,0 +1,5 @@
+-buildpath: \
+	osgi.cmpn;version=6.0,\
+	javax.ws.rs-api;version=2.0
+Private-Package: name.nschroeter.osgi.jaxrs.connector.simpleresource.provider
+Export-Package: name.nschroeter.osgi.jaxrs.connector.simpleresource
