@@ -9,7 +9,7 @@ import name.nschroeter.osgi.jaxrs.connector.simpleresource.SimpleResource;
 public class SimpleResourceProvider implements SimpleResource {
 
 	@Override
-	public String hello() {
+	public String sayHello() {
 		return "Hello World!";
 	}
 }

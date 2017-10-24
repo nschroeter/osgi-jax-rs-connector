@@ -9,6 +9,6 @@ import javax.ws.rs.core.MediaType;
 public interface SimpleResource {
 
 	@GET
-	@Produces(MediaType.TEXT_PLAIN)
-	String hello();
+	@Produces(MediaType.APPLICATION_JSON)
+	String sayHello();
 }
